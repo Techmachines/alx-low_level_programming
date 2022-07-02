@@ -1,9 +1,8 @@
 #include <stdio.h>
 
 /**
- * main - Prints combination of numbers
+ *  main - Prints combination of numbers
  *
- * Return: Always (Success)
  */
 int main(void)
 {
@@ -11,7 +10,7 @@ int main(void)
 
 	for (c = '0'; c <= '9'; c++)
 	{
-		for (c = '0'; c <= '9'; c++)
+		for (i = '0'; i <= '9'; i++)
 		{
 			if (c < i)
 			{
