@@ -1,8 +1,9 @@
 #include <stdio.h>
 
 /**
- *  main - Prints combination of numbers
+ * main - Prints combination of numbers
  *
+ * Return: Always (Success)
  */
 int main(void)
 {
@@ -20,7 +21,7 @@ int main(void)
 				if (c != '8' || (c == '8' && i != '9'))
 				{
 					putchar(',');
-					putchar(' ');
+					putchar(',');
 				}
 			}
 		}
