@@ -2,7 +2,7 @@
 #define LARGEST 10000000000
 /**
  * main-main block
- * Description: Find and print hthe first 98 fib numbers starting with 1 and 2 
+ * Description:Find and print hthe first 98 fib numbers starting with 1 and 2 
  * Numbers should be comma and space seperated.
  * Return: 0
  */
@@ -22,7 +22,7 @@ int main(void)
 			hold3 = fr1 + fr2 + hold1;
 			fr1 = fr2, fr2 = hold3;
 			bk1 = bk2, bk2 = hold2;
-			printf("%lu%010lu", fr2, bk2);
+			printf("%lu%lu", fr2, bk2);
 		}
 		else
 		{
@@ -30,7 +30,7 @@ int main(void)
 			bk1 = bk2, bk2 = hold2;
 			printf ("%lu", bk2);
 		}
-		if(count != 97)
+		if (count != 97)
 			printf(",");
 	}
 	printf("\n");
