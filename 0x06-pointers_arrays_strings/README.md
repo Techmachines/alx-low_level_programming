@@ -1,1 +1,1 @@
-This is More pointers, Strings and Arrays Project.
+This is a More pointers, Strings and Arrays Project.
