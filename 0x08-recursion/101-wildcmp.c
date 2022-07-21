@@ -1,4 +1,4 @@
-
+#include "main.h"
 
 /**
  * wildcmp - Compare two strings allowing for wildcard char
