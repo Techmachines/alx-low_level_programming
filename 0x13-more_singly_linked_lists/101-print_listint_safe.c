@@ -1,71 +1,66 @@
 #include "lists.h"
+#include <stdlib.h>
 
 /**
-* print_listint_safe - prints a list but safely
-* @head: the head node. pointer
-*
-* Description: dont wanna print a infinite loop
-*	either match addresses or free the head so cant loop back
-* Return: the count number
-* A: we make an array that will store everything from head given
-* B: while the head is not null, we iterate through
-* C: count is initially 0 and i is 0 so we dont even loop through the first
-*	time, we skip this. we assign array to the head and increment head
-*	then we increase count so when we loop through again, we can go
-*	into the for loop
-* D: inside the loop, we check if the head value is equal to the array values
-*	if we found a match then we turn the boolean flag on and break and
-*	we make the index equal to whatever the i counter was
-* E: if we found a match, which is a loop, we break out of the while loop
-* F: new loop, we will loop through our array values we copied over from head
-*	and we print out their pointer address and their value.
-* G: if we had an infinite loop we have a flag check of 1 which will
-*	also print out the index which is the last one.
-*/
-
-size_t print_listint_safe(const listint_t *head)
+ * find_listint_loop_fl - finds a loop in a linked list
+ *
+ * @head: linked list to search
+ *
+ * Return: address of node where loop starts/returns, NULL if no loop
+ */
+listint_t *find_listint_loop_fl(listint_t *head)
 {
-	size_t count = 0;
-	size_t index = 0;
-	listint_t const **array;/* A */
+	listint_t *ptr, *end;
 
-	array = malloc(sizeof(listint_t *) * 1024);
-	if (!array)
-		exit(98);
-	unsigned int i = 0;
-	unsigned int flag = 0;
+	if (head == NULL)
+		return (NULL);
 
-	while (head != NULL)/* B */
+	for (end = head->next; end != NULL; end = end->next)
 	{
-		for (i = 0; i < count; i++)/* C*/
+		if (end == end->next)
+			return (end);
+		for (ptr = head; ptr != end; ptr = ptr->next)
+			if (ptr == end->next)
+				return (end->next);
+	}
+	return (NULL);
+}
+
+/**
+ * free_listint_safe - frees a listint list, even if it has a loop
+ *
+ * @h: head of list
+ *
+ * Return: number of nodes freed
+ */
+size_t free_listint_safe(listint_t **h)
+{
+	listint_t *next, *loopnode;
+	size_t len;
+	int loop = 1;
+
+	if (h == NULL || *h == NULL)
+		return (0);
+
+	loopnode = find_listint_loop_fl(*h);
+	for (len = 0; (*h != loopnode || loop) && *h != NULL; *h = next)
+	{
+		len++;
+		next = (*h)->next;
+		if (*h == loopnode && loop)
 		{
-			if (head == array[i])/* D */
+			if (loopnode == loopnode->next)
 			{
-				flag = 1;
-				index = i;
+				free(*h);
 				break;
 			}
-			else
-				flag = 0;
+			len++;
+			next = next->next;
+			free((*h)->next);
+			loop = 0;
 		}
-
-		if (flag == 1)/* E */
-			break;
-		array[count] = head;
-		head = head->next;
-		count++;
+		free(*h);
 	}
-
-	i = 0;
-	while (i < count)/* F */
-	{
-		printf("[%p] %d\n", (void *)array[i], array[i]->n);
-		i++;
-	}
-	if (flag == 1)/* G */
-	{
-		printf("-> [%p] %d\n", (void *)array[index], array[index]->n);
-	}
-	free(array);
-	return (count);
+	*h = NULL;
+	return (len);
 }
