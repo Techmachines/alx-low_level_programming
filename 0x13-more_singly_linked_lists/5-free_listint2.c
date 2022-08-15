@@ -3,21 +3,21 @@
 #include "lists.h"
 
 /**
- * free_listint2 - function that frees a listint_t list.
- * @head: header pointer
+ * free_listint2 - frees a list but head is null
+ * @head: linked list and head
+ *
  */
-
 void free_listint2(listint_t **head)
 {
 	listint_t *tmp;
-	listint_t *tmp2;
 
-	tmp2 = *head;
-	while (tmp2 != NULL && head != NULL)
+	if (head == NULL)
+		return;
+	while (*head != NULL)
 	{
-		tmp = tmp2;
-		tmp2 = tmp2->next;
-		free(tmp);
+		tmp = *head;
+		free(*head);
+		*head = tmp->next;
 	}
 	*head = NULL;
 }
