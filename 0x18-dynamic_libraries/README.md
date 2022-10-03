@@ -1,0 +1,1 @@
+Alx dynamic library project
