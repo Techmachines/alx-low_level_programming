@@ -1,2 +1,2 @@
 # alx-low_level_programming
-This is an alx low level programming assignment 1
+This is an alx low level programming assignment 
